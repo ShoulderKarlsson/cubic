@@ -3,35 +3,22 @@ import {StyleSheet, Text, View, Button} from 'react-native'
 import {Cube} from './components/Cube'
 import * as colors from './lib/colors'
 import {MenuText} from './components/MenuText'
+import {generateRandomColors} from './lib/randomColors'
 
-export default class App extends React.Component {
-  generateRandomCubes = () => {
-    const randomColors = []
-    const availableColors = Object.keys(colors)
-    const availableColorsLen = availableColors.length
-
-    for (let i = 0; i < 9; i++) {
-      randomColors.push(
-        colors[availableColors[Math.floor(Math.random() * availableColorsLen)]],
-      )
-    }
-
-    return randomColors
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.cubes}>
-          {this.generateRandomCubes().map((c, i) => <Cube color={c} key={i} />)}
-        </View>
-        <View style={styles.optionsContainer}>
-          <MenuText text={'Start Solving'} />
-          <MenuText text={'Continue'} />
-        </View>
+export default () => {
+  return (
+    <View style={styles.container}>
+      <View style={styles.cubes}>
+        {generateRandomColors(9).map((color, i) => (
+          <Cube key={i} color={color} />
+        ))}
       </View>
-    )
-  }
+      <View style={styles.optionsContainer}>
+        <MenuText text={'Start Solving'}/>
+        <MenuText text={'Continue on step 3'} />
+      </View>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
