@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, Text, View} from "react-native"
+import {StyleSheet, Text, View} from 'react-native'
 import {NavLink} from '../components/NavLink'
 import {Cube} from '../components/Cube'
 import {generateRandomColors} from '../lib/randomColors'
@@ -7,23 +7,23 @@ import {generateRandomColors} from '../lib/randomColors'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ef5350",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#ef5350',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   cubes: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
     width: 204,
     height: 204,
-    flexWrap: "wrap",
-    backgroundColor: "#000",
+    flexWrap: 'wrap',
+    backgroundColor: '#000',
   },
   optionsContainer: {
-    display: "flex",
-    justifyContent: "center",
+    display: 'flex',
+    justifyContent: 'center',
     height: 128,
     marginTop: 64,
   },
@@ -38,8 +38,8 @@ export const Main = ({match}) => {
         ))}
       </View>
       <View style={styles.optionsContainer}>
-        <NavLink to={`/step/1`} text='Start Solving'/>
-        <NavLink to={'/algorithms'} text='Learn the algorithms' />
+        <NavLink to={`/step/1`} text="Start Solving" />
+        <NavLink to={'/algorithms'} text="Learn the algorithms" />
       </View>
     </View>
   )
