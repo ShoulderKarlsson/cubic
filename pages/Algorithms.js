@@ -1,12 +1,61 @@
 import React from 'react'
 import {Text, View, StyleSheet} from 'react-native'
 import {globalStyles} from '../lib/common-styles'
+import {stages} from '../lib/stages'
+import {NavLink} from '../components/NavLink'
 
-export const Algorithms = () => {
+const styles = StyleSheet.create({
+  stageLinkContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 12,
+    // backgroundColor: 'orange',
+  },
+
+  topSection: {
+    // backgroundColor: 'navy',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})
+
+export const Algorithms = ({...props}) => {
+  // console.log(stages.length)
   return (
     <View style={globalStyles.container}>
-      <Text>Learn Algorithms here!</Text>
+      {stages.map(({stageNumber, title, algs, ...props}, i) => {
+        // console.log(stageNumber)
+        return (
+          <View style={styles.stageLinkContainer} key={i}>
+            <View style={styles.topSection}>
+              <NavLink
+                to={`/algorithms/${stageNumber}`}
+                text={`Step ${stageNumber}`}
+              />
+              <Text
+                style={{
+                  color: '#e0e0e0',
+                  fontSize: 16,
+                }}
+              >
+                {title}
+              </Text>
+            </View>
+          </View>
+        )
+      })}
     </View>
   )
 }
 
+// const AlgorithmInfo = ({description, steps}) => (
+//   <View style={{
+//     marginTop: 6
+//   }}>
+//     <Text>{description}</Text>
+//     <Text>{steps.map(step => `${step}, `)}</Text>
+//   </View>
+// )
