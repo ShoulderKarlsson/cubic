@@ -8,11 +8,13 @@ import {NativeRouter, Link} from 'react-router-native'
 import {Navigation, Card} from 'react-router-navigation'
 import {Main} from './pages/Main'
 import {Algorithms} from './pages/Algorithms'
+import {StatelessStepTrain} from './pages/StepTrain'
 
 export default () => (
   <NativeRouter>
     <Navigation>
       <Card exact path="/algorithms" render={Algorithms} />
+      <Card exact path="/algorithms/:stageId" render={StatelessStepTrain} />
       <Card exact path="/" render={Main} />
     </Navigation>
   </NativeRouter>
