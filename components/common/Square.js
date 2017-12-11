@@ -17,14 +17,16 @@ const styles = StyleSheet.create({
 
   textStyle: {
     fontSize: 64,
-    color: '#fff'
-  }
+    color: '#fff',
+  },
 })
 
-
-export const Square = ({text, onClick = () => {}}) =>
+export const Square = ({text, onClick = () => {}}) => (
   <View style={styles.square}>
-    {
-      !!text ? <Text style={styles.textStyle} onPress={() => onClick()}>{text}</Text> : null
-    }
+    {!!text ? (
+      <Text style={styles.textStyle} onPress={() => onClick()}>
+        {text}
+      </Text>
+    ) : null}
   </View>
+)
