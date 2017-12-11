@@ -23,11 +23,9 @@ const styles = StyleSheet.create({
 })
 
 export const Algorithms = ({...props}) => {
-  // console.log(stages.length)
   return (
     <View style={globalStyles.container}>
       {stages.map(({stageNumber, title, algs, ...props}, i) => {
-        // console.log(stageNumber)
         return (
           <View style={styles.stageLinkContainer} key={i}>
             <View style={styles.topSection}>
