@@ -6,8 +6,8 @@ import {StyleSheet, View, Text} from 'react-native'
  */
 const styles = StyleSheet.create({
   square: {
-    height: 64,
-    width: 64,
+    height: 72,
+    width: 72,
     backgroundColor: 'rgba(1,1,1, 0.4)',
     display: 'flex',
     justifyContent: 'center',
