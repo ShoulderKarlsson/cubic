@@ -36,31 +36,40 @@ class StepTrain extends Component {
     })
   }
 
+
   handleGuess = (guess, pos) => {
     const guesses = [
       ...this.state.guesses,
-      {guess, pos, guessPosition: this.state.guesses.length},
+      {guess, pos, guessPosition: this.findGuessPosition()},
     ]
     const {correct, errors} = this.evaluateScore(guesses)
     this.setState({guesses, correct, errors})
   }
 
+  findGuessPosition = () => {
+    if (this.state.guesses.length === 0) return 0
+
+    const foo = Array(this.state.correctSequence.length).fill(null)
+    this.state.guesses.forEach(({guessPosition}) => {
+      foo[guessPosition] = guessPosition
+    })
+
+
+    const position = foo.findIndex(e => e === null)
+
+
+    console.log('foo', foo)
+    console.log('position', position)
+
+    return position
+  }
+
   removeGuess = target => {
     if (target === null) return
-
-    console.log('target :', target)
-    console.log()
-    const guesses = this.state.guesses.filter(({guessPosition, guess, pos}) => {
-      // console.log('pos :', pos)
-      // console.log('guess :', guess)
-      // console.log('target.pos :', target.pos)
-      // console.log('target.guess :', target.guess)
-      return (
-        guessPosition !== target.guessPosition &&
-        // guess !== target.guess &&
-        pos !== target.pos
-      )
-    })
+    const guesses = this.state.guesses.filter(
+      ({guessPosition, guess, pos}) =>
+        guessPosition !== target.guessPosition && pos !== target.pos,
+    )
     const {correct, errors} = this.evaluateScore(guesses)
     this.setState({errors, correct, guesses})
   }
@@ -75,9 +84,6 @@ class StepTrain extends Component {
     )
 
   render() {
-    console.log('='.repeat(100))
-    console.log('this.state.guesses :', this.state.guesses)
-    console.log('='.repeat(100))
     // TODO: refactor this
     // This is because in componentDidMount we are collecting the stage
     // maybe provide this to component as prop or something like that...
@@ -102,7 +108,6 @@ class StepTrain extends Component {
               <Square
                 key={i}
                 text={guess ? guess.guess : null}
-                // text={guesses[i] ? guesses[i].guess : null}
                 onClick={() => this.removeGuess(guess ? guess : null)}
               />
             )
@@ -120,10 +125,13 @@ class StepTrain extends Component {
             )
           })}
         </View>
-        <View style={styles.scoreContainer}>
-          <Text>{`Correct ${this.state.correct}`}</Text>
-          <Text>{`Wrong: ${this.state.errors}`}</Text>
-        </View>
+        {this.state.correct + this.state.errors ===
+          this.state.correctSequence.length && (
+          <View style={styles.scoreContainer}>
+            <Text>{`Correct ${this.state.correct}`}</Text>
+            <Text>{`Wrong: ${this.state.errors}`}</Text>
+          </View>
+        )}
       </View>
     )
   }
