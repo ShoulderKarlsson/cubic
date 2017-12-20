@@ -37,15 +37,30 @@ class StepTrain extends Component {
   }
 
   handleGuess = (guess, pos) => {
-    const guesses = [...this.state.guesses, {guess, pos}]
+    const guesses = [
+      ...this.state.guesses,
+      {guess, pos, guessPosition: this.state.guesses.length},
+    ]
     const {correct, errors} = this.evaluateScore(guesses)
     this.setState({guesses, correct, errors})
   }
 
   removeGuess = target => {
-    const guesses = this.state.guesses.filter(
-      ({pos, guess}) => pos !== target.pos && guess !== target.guess,
-    )
+    if (target === null) return
+
+    console.log('target :', target)
+    console.log()
+    const guesses = this.state.guesses.filter(({guessPosition, guess, pos}) => {
+      // console.log('pos :', pos)
+      // console.log('guess :', guess)
+      // console.log('target.pos :', target.pos)
+      // console.log('target.guess :', target.guess)
+      return (
+        guessPosition !== target.guessPosition &&
+        // guess !== target.guess &&
+        pos !== target.pos
+      )
+    })
     const {correct, errors} = this.evaluateScore(guesses)
     this.setState({errors, correct, guesses})
   }
@@ -60,6 +75,9 @@ class StepTrain extends Component {
     )
 
   render() {
+    console.log('='.repeat(100))
+    console.log('this.state.guesses :', this.state.guesses)
+    console.log('='.repeat(100))
     // TODO: refactor this
     // This is because in componentDidMount we are collecting the stage
     // maybe provide this to component as prop or something like that...
@@ -76,13 +94,19 @@ class StepTrain extends Component {
         />
         <Header text={this.state.stage.title} color="#e0e0e0" fontSize={16} />
         <View style={styles.squareContainer}>
-          {alg.steps.map((_, i) => (
-            <Square
-              key={i}
-              text={guesses[i] ? guesses[i].guess : null}
-              onClick={() => this.removeGuess(guesses[i] ? guesses[i] : null)}
-            />
-          ))}
+          {alg.steps.map((_, i) => {
+            const guess = this.state.guesses.find(
+              ({guessPosition}) => guessPosition === i,
+            )
+            return (
+              <Square
+                key={i}
+                text={guess ? guess.guess : null}
+                // text={guesses[i] ? guesses[i].guess : null}
+                onClick={() => this.removeGuess(guess ? guess : null)}
+              />
+            )
+          })}
         </View>
         <View style={styles.squareContainer}>
           {alg.steps.map((step, i) => {
