@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
 
 class StepTrain extends Component {
   state = {
-    amountOfErrors: 0,
-    amountOfCorrect: 0,
+    errors: 0,
+    correct: 0,
     guesses: [],
     correctSequence: [],
     stage: {},
@@ -36,37 +36,28 @@ class StepTrain extends Component {
     })
   }
 
-  evaluateGuess = (guess, position) => {
-    this.setState(() => ({
-      guesses: [...this.state.guesses, {guess, pos: position}],
-    }))
-    this.foo()
+  handleGuess = (guess, pos) => {
+    const guesses = [...this.state.guesses, {guess, pos}]
+    const {correct, errors} = this.evaluateScore(guesses)
+    this.setState({guesses, correct, errors})
   }
 
-  foo = () => {
-    const {amountOfCorrect, amountOfErrors} = this.state.guesses.reduce(
-      (curr, {guess}, i) => {
-        if (this.state.correctSequence[i] === guess) {
-          return {
-            ...curr,
-            amountOfCorrect: curr.amountOfCorrect + 1,
-          }
-        } else {
-          return {
-            ...curr,
-            amountOfErrors: curr.amountOfErrors + 1,
-          }
-        }
-      }, {amountOfCorrect: 0, amountOfErrors: 0}
+  removeGuess = target => {
+    const guesses = this.state.guesses.filter(
+      ({pos, guess}) => pos !== target.pos && guess !== target.guess,
     )
-
-    this.setState(() => ({
-      amountOfCorrect, amountOfErrors
-    }))
-
-    console.log('amountOfCorrect :', amountOfCorrect)
-    console.log('amountOfErrors :', amountOfErrors)
+    const {correct, errors} = this.evaluateScore(guesses)
+    this.setState({errors, correct, guesses})
   }
+
+  evaluateScore = guesses =>
+    guesses.reduce(
+      ({correct, errors}, {guess}, i) =>
+        this.state.correctSequence[i] === guess
+          ? {errors, correct: correct + 1}
+          : {correct, errors: errors + 1},
+      {correct: 0, errors: 0},
+    )
 
   render() {
     // TODO: refactor this
@@ -86,7 +77,11 @@ class StepTrain extends Component {
         <Header text={this.state.stage.title} color="#e0e0e0" fontSize={16} />
         <View style={styles.squareContainer}>
           {alg.steps.map((_, i) => (
-            <Square key={i} text={guesses[i] ? guesses[i].guess : null} />
+            <Square
+              key={i}
+              text={guesses[i] ? guesses[i].guess : null}
+              onClick={() => this.removeGuess(guesses[i] ? guesses[i] : null)}
+            />
           ))}
         </View>
         <View style={styles.squareContainer}>
@@ -96,14 +91,14 @@ class StepTrain extends Component {
               <Square
                 key={i}
                 text={!hasMadeGuess ? step : null}
-                onClick={() => this.evaluateGuess(step, i)}
+                onClick={() => this.handleGuess(step, i)}
               />
             )
           })}
         </View>
         <View style={styles.scoreContainer}>
-          <Text>{`Correct ${this.state.amountOfCorrect}`}</Text>
-          <Text>{`Wrong: ${this.state.amountOfErrors}`}</Text>
+          <Text>{`Correct ${this.state.correct}`}</Text>
+          <Text>{`Wrong: ${this.state.errors}`}</Text>
         </View>
       </View>
     )
