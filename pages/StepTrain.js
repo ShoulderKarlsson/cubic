@@ -4,6 +4,7 @@ import {stages} from '../lib/stages'
 import {globalStyles} from '../lib/common-styles'
 import {Header} from '../components/common/Header'
 import {Square} from '../components/common/Square'
+import {shuffleArray} from '../lib/common-helpers'
 
 const styles = StyleSheet.create({
   squareContainer: {
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
   },
 
   scoreContainer: {
-    marginTop: 32
+    marginTop: 32,
   },
 })
 
@@ -30,21 +31,11 @@ class StepTrain extends Component {
   componentDidMount() {
     const {stageId} = this.props.match.params
     const stage = stages.find(({stageNumber}) => stageId == stageNumber)
-    let a = stage.algs[0]._steps
-
-    var j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1));
-        x = a[i];
-        a[i] = a[j];
-        a[j] = x;
-    }
-
-    console.log(a)
+    const shuffledSteps = shuffleArray(stage.algs[0].steps)
 
     this.setState({
       stage: {...stage},
-      steps: [...stage.algs[0]._steps],
+      steps: [...shuffledSteps],
     })
   }
 
@@ -81,6 +72,19 @@ class StepTrain extends Component {
     )
 
   render() {
+    /**
+     * IT STOPPED WORKING WHEN IM USING THE SHUFFLEARRAY FN
+     */
+
+    // console.log('='.repeat(100))
+    // console.log('IT STOPPED WORKING WHEN IM USING THE SHUFFLEARRAY FN')
+    // console.log('IT STOPPED WORKING WHEN IM USING THE SHUFFLEARRAY FN')
+    // console.log('IT STOPPED WORKING WHEN IM USING THE SHUFFLEARRAY FN')
+    // console.log('IT STOPPED WORKING WHEN IM USING THE SHUFFLEARRAY FN')
+    // console.log('IT STOPPED WORKING WHEN IM USING THE SHUFFLEARRAY FN')
+    // console.log('IT STOPPED WORKING WHEN IM USING THE SHUFFLEARRAY FN')
+    // console.log('='.repeat(100))
+
     if (!Object.keys(this.state.stage).length) return null
 
     return (
@@ -126,7 +130,11 @@ class StepTrain extends Component {
         </View>
         <View style={styles.scoreContainer}>
           {this.state.guesses.length === this.state.steps.length && (
-            <Header fontSize={32} color='#fff' text={`Correct Moves: ${this.calculateScore()}`}/>
+            <Header
+              fontSize={32}
+              color="#fff"
+              text={`Correct Moves: ${this.calculateScore()}`}
+            />
           )}
         </View>
       </View>
