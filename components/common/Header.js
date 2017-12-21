@@ -8,20 +8,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'column',
   },
-
-    largeHeader: {
-      fontSize: 32,
-      color: '#fff'
-    },
+  largeHeader: {
+    fontSize: 32,
+    color: '#fff',
+  },
   smallHeader: {
     fontSize: 16,
-    color: '#fff'
-  }
+    color: '#fff',
+  },
 })
 
-export const Header = ({text, color, fontSize}) =>
+export const Header = ({text, color, fontSize, onClick, style = {}}) => (
   <View style={styles.container}>
-    <Text style={{color, fontSize}}>
+    <Text style={{color, fontSize, ...style}} onPress={() => onClick()}>
       {text}
     </Text>
   </View>
+)
