@@ -67,24 +67,12 @@ class StepTrain extends Component {
 
   calculateScore = () =>
     this.state.guesses.reduce(
-      (acc, {guessPos, order}) => (guessPos === order ? acc + 1 : acc),
+      (acc, {guessPos, order}) =>
+        order.some(pos => pos === guessPos) ? acc + 1 : acc,
       0,
     )
 
   render() {
-    /**
-     * IT STOPPED WORKING WHEN IM USING THE SHUFFLEARRAY FN
-     */
-
-    // console.log('='.repeat(100))
-    // console.log('IT STOPPED WORKING WHEN IM USING THE SHUFFLEARRAY FN')
-    // console.log('IT STOPPED WORKING WHEN IM USING THE SHUFFLEARRAY FN')
-    // console.log('IT STOPPED WORKING WHEN IM USING THE SHUFFLEARRAY FN')
-    // console.log('IT STOPPED WORKING WHEN IM USING THE SHUFFLEARRAY FN')
-    // console.log('IT STOPPED WORKING WHEN IM USING THE SHUFFLEARRAY FN')
-    // console.log('IT STOPPED WORKING WHEN IM USING THE SHUFFLEARRAY FN')
-    // console.log('='.repeat(100))
-
     if (!Object.keys(this.state.stage).length) return null
 
     return (
