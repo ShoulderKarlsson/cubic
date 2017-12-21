@@ -15,82 +15,74 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
 
-  scoreContainer: {},
+  scoreContainer: {
+    marginTop: 32
+  },
 })
 
 class StepTrain extends Component {
   state = {
-    errors: 0,
-    correct: 0,
-    guesses: [],
-    correctSequence: [],
     stage: {},
+    steps: [],
+    guesses: [],
   }
 
   componentDidMount() {
     const {stageId} = this.props.match.params
     const stage = stages.find(({stageNumber}) => stageId == stageNumber)
+    let a = stage.algs[0]._steps
+
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+
+    console.log(a)
+
     this.setState({
       stage: {...stage},
-      correctSequence: [...stage.algs[0].steps],
+      steps: [...stage.algs[0]._steps],
     })
   }
 
-
-  handleGuess = (guess, pos) => {
-    const guesses = [
-      ...this.state.guesses,
-      {guess, pos, guessPosition: this.findGuessPosition()},
-    ]
-    const {correct, errors} = this.evaluateScore(guesses)
-    this.setState({guesses, correct, errors})
-  }
-
-  findGuessPosition = () => {
-    if (this.state.guesses.length === 0) return 0
-
-    const foo = Array(this.state.correctSequence.length).fill(null)
-    this.state.guesses.forEach(({guessPosition}) => {
-      foo[guessPosition] = guessPosition
+  makeGuess = guess => {
+    this.setState({
+      guesses: [
+        ...this.state.guesses,
+        {...guess, guessPos: this.getGuessPosition()},
+      ],
     })
-
-
-    const position = foo.findIndex(e => e === null)
-
-
-    console.log('foo', foo)
-    console.log('position', position)
-
-    return position
   }
 
-  removeGuess = target => {
-    if (target === null) return
-    const guesses = this.state.guesses.filter(
-      ({guessPosition, guess, pos}) =>
-        guessPosition !== target.guessPosition && pos !== target.pos,
+  getGuessPosition = () => {
+    if (!this.state.guesses.length) return 0
+
+    const tmp = Array(this.state.steps.length).fill(null)
+    this.state.guesses.forEach(({guessPos}) => (tmp[guessPos] = guessPos))
+    return tmp.findIndex(val => val === null)
+  }
+
+  removeGuess = guess => {
+    const updatedGuesses = this.state.guesses.filter(
+      ({guessPos}) => guessPos !== guess.guessPos,
     )
-    const {correct, errors} = this.evaluateScore(guesses)
-    this.setState({errors, correct, guesses})
+    this.setState({
+      guesses: [...updatedGuesses],
+    })
   }
 
-  evaluateScore = guesses =>
-    guesses.reduce(
-      ({correct, errors}, {guess}, i) =>
-        this.state.correctSequence[i] === guess
-          ? {errors, correct: correct + 1}
-          : {correct, errors: errors + 1},
-      {correct: 0, errors: 0},
+  calculateScore = () =>
+    this.state.guesses.reduce(
+      (acc, {guessPos, order}) => (guessPos === order ? acc + 1 : acc),
+      0,
     )
 
   render() {
-    // TODO: refactor this
-    // This is because in componentDidMount we are collecting the stage
-    // maybe provide this to component as prop or something like that...
     if (!Object.keys(this.state.stage).length) return null
 
-    const {guesses} = this.state
-    const [alg] = this.state.stage.algs
     return (
       <View style={globalStyles.container}>
         <Header
@@ -100,38 +92,43 @@ class StepTrain extends Component {
         />
         <Header text={this.state.stage.title} color="#e0e0e0" fontSize={16} />
         <View style={styles.squareContainer}>
-          {alg.steps.map((_, i) => {
-            const guess = this.state.guesses.find(
-              ({guessPosition}) => guessPosition === i,
+          {this.state.steps.map((step, i) => {
+            const guessAtIndex = this.state.guesses.find(
+              ({guessPos}) => guessPos === i,
             )
+
             return (
               <Square
                 key={i}
-                text={guess ? guess.guess : null}
-                onClick={() => this.removeGuess(guess ? guess : null)}
+                text={guessAtIndex ? guessAtIndex.name : null}
+                onClick={() => this.removeGuess(guessAtIndex)}
               />
             )
           })}
         </View>
         <View style={styles.squareContainer}>
-          {alg.steps.map((step, i) => {
-            const hasMadeGuess = guesses.find(({pos}) => pos === i)
+          {this.state.steps.map((step, i) => {
+            const hasMadeGuess = this.state.guesses.find(
+              ({optionPos}) => optionPos === i,
+            )
             return (
               <Square
                 key={i}
-                text={!hasMadeGuess ? step : null}
-                onClick={() => this.handleGuess(step, i)}
+                text={!hasMadeGuess ? step.name : null}
+                onClick={
+                  !hasMadeGuess
+                    ? () => this.makeGuess({...step, optionPos: i})
+                    : null
+                }
               />
             )
           })}
         </View>
-        {this.state.correct + this.state.errors ===
-          this.state.correctSequence.length && (
-          <View style={styles.scoreContainer}>
-            <Text>{`Correct ${this.state.correct}`}</Text>
-            <Text>{`Wrong: ${this.state.errors}`}</Text>
-          </View>
-        )}
+        <View style={styles.scoreContainer}>
+          {this.state.guesses.length === this.state.steps.length && (
+            <Header fontSize={32} color='#fff' text={`Correct Moves: ${this.calculateScore()}`}/>
+          )}
+        </View>
       </View>
     )
   }
