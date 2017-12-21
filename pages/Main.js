@@ -38,8 +38,7 @@ export const Main = ({match}) => {
         ))}
       </View>
       <View style={styles.optionsContainer}>
-        <NavLink to={`/step/1`} text="Start Solving" />
-        <NavLink to={'/algorithms'} text="Learn the algorithms" />
+        <NavLink to={'/algorithms'} text="Start Learning!" />
       </View>
     </View>
   )

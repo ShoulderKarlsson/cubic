@@ -49,8 +49,6 @@ class StepTrain extends Component {
   }
 
   getGuessPosition = () => {
-    if (!this.state.guesses.length) return 0
-
     const tmp = Array(this.state.steps.length).fill(null)
     this.state.guesses.forEach(({guessPos}) => (tmp[guessPos] = guessPos))
     return tmp.findIndex(val => val === null)
@@ -68,6 +66,7 @@ class StepTrain extends Component {
   calculateScore = () =>
     this.state.guesses.reduce(
       (acc, {guessPos, order}) =>
+        // evaluates if the position of the guess is in any of the accepted locations
         order.some(pos => pos === guessPos) ? acc + 1 : acc,
       0,
     )
@@ -82,7 +81,12 @@ class StepTrain extends Component {
           color="#fff"
           fontSize={32}
         />
-        <Header text={this.state.stage.title} color="#e0e0e0" fontSize={16} />
+        <Header
+          text={this.state.stage.algs[0].description}
+          color="#e0e0e0"
+          fontSize={16}
+          style={{marginTop: 16}}
+        />
         <View style={styles.squareContainer}>
           {this.state.steps.map((step, i) => {
             const guessAtIndex = this.state.guesses.find(
@@ -118,11 +122,22 @@ class StepTrain extends Component {
         </View>
         <View style={styles.scoreContainer}>
           {this.state.guesses.length === this.state.steps.length && (
-            <Header
-              fontSize={32}
-              color="#fff"
-              text={`Correct Moves: ${this.calculateScore()}`}
-            />
+            <View>
+              <Header
+                fontSize={32}
+                color="#fff"
+                text={`Correct Moves: ${this.calculateScore()}/${
+                  this.state.steps.length
+                }`}
+              />
+              <Header
+                fontSize={24}
+                color="#fff"
+                text="Restart?"
+                onClick={() => this.setState({guesses: []})}
+                style={{marginTop: 8}}
+              />
+            </View>
           )}
         </View>
       </View>
