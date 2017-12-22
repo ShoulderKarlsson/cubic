@@ -11,11 +11,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 12,
-    // backgroundColor: 'orange',
   },
 
   topSection: {
-    // backgroundColor: 'navy',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -48,12 +46,3 @@ export const Algorithms = ({...props}) => {
     </View>
   )
 }
-
-// const AlgorithmInfo = ({description, steps}) => (
-//   <View style={{
-//     marginTop: 6
-//   }}>
-//     <Text>{description}</Text>
-//     <Text>{steps.map(step => `${step}, `)}</Text>
-//   </View>
-// )

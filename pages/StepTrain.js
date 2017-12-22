@@ -55,18 +55,19 @@ class StepTrain extends Component {
   }
 
   removeGuess = guess => {
-    const updatedGuesses = this.state.guesses.filter(
-      ({guessPos}) => guessPos !== guess.guessPos,
-    )
     this.setState({
-      guesses: [...updatedGuesses],
+      guesses: [
+        ...this.state.guesses.filter(
+          ({guessPos}) => guessPos !== guess.guessPos,
+        ),
+      ],
     })
   }
 
   calculateScore = () =>
     this.state.guesses.reduce(
       (acc, {guessPos, order}) =>
-        // evaluates if the position of the guess is in any of the accepted locations
+        // Evaluates if the position of the guess is in any of the accepted locations
         order.some(pos => pos === guessPos) ? acc + 1 : acc,
       0,
     )
@@ -89,6 +90,7 @@ class StepTrain extends Component {
         />
         <View style={styles.squareContainer}>
           {this.state.steps.map((step, i) => {
+            // Evaluates if there should be a guess presented for the current square
             const guessAtIndex = this.state.guesses.find(
               ({guessPos}) => guessPos === i,
             )
@@ -104,6 +106,7 @@ class StepTrain extends Component {
         </View>
         <View style={styles.squareContainer}>
           {this.state.steps.map((step, i) => {
+            // Evaluates if there should be a guess in the current square
             const hasMadeGuess = this.state.guesses.find(
               ({optionPos}) => optionPos === i,
             )
@@ -121,7 +124,8 @@ class StepTrain extends Component {
           })}
         </View>
         <View style={styles.scoreContainer}>
-          {this.state.guesses.length === this.state.steps.length && (
+          {// Only displaying score when all guesses are done
+          this.state.guesses.length === this.state.steps.length && (
             <View>
               <Header
                 fontSize={32}

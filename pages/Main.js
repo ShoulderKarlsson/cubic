@@ -2,12 +2,13 @@ import React from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 import {NavLink} from '../components/NavLink'
 import {Cube} from '../components/Cube'
-import {generateRandomColors} from '../lib/randomColors'
+import {generateRandomColors} from '../lib/common-helpers'
+import {RED} from '../lib/colors'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ef5350',
+    backgroundColor: RED,
     alignItems: 'center',
     justifyContent: 'center',
   },
