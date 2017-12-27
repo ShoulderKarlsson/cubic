@@ -1,9 +1,6 @@
 import React from 'react'
 import {StyleSheet, View, Text} from 'react-native'
 
-/**
- * TODO: Make more configurable
- */
 const styles = StyleSheet.create({
   square: {
     height: 72,
@@ -20,6 +17,8 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
 })
+
+
 
 export const Square = ({text, onClick = () => {}}) => (
   <View style={styles.square}>
