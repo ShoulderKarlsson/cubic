@@ -33,6 +33,7 @@ const getStyles = ({
       : 'rgba(1,1,1, 0.4)',
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
     margin: 6,
   },
 
@@ -45,9 +46,9 @@ const getStyles = ({
 export const Square = ({text, onClick = () => {}, ...props}) => {
   const {square, textStyle} = getStyles(props)
   return (
-    <View style={styles.square}>
+    <View style={square}>
       {!!text ? (
-        <Text style={styles.textStyle} onPress={() => onClick()}>
+        <Text style={textStyle} onPress={() => onClick()}>
           {text}
         </Text>
       ) : null}
