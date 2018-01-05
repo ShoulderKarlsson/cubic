@@ -1,7 +1,6 @@
 import React from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 import {NavLink} from '../components/NavLink'
-import {Cube} from '../components/Cube'
 import {Square} from '../components/common/Square'
 import {generateRandomColors} from '../lib/common-helpers'
 import {RED} from '../lib/colors'

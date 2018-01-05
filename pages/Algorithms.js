@@ -4,7 +4,6 @@ import {globalStyles} from '../lib/common-styles'
 import {stages} from '../lib/stages'
 import {NavLink} from '../components/NavLink'
 import {Square} from '../components/common/Square'
-import {Header} from '../components/common/Header'
 import {RED} from '../lib/colors'
 import Dimensions from 'Dimensions'
 const win = Dimensions.get('window')
