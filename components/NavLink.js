@@ -1,25 +1,29 @@
 import React from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 import {Link} from 'react-router-native'
-import PropType from 'prop-types'
+import PropTypes from 'prop-types'
 import {WHITE} from '../lib/colors'
 
-const styles = StyleSheet.create({
-	containerStyle: {
-		height: 64,
-		width: 'auto',
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	textStyle: {
-		fontWeight: '600',
-		fontSize: 32,
-		color: WHITE,
-	},
-})
+const generateStyles = ({fontSize, fontColor, containerHeight, isBold, showUnderline}) =>
+	StyleSheet.create({
+		containerStyle: {
+			height: containerHeight ? containerHeight : 64,
+			display: 'flex',
+			justifyContent: 'center',
+			alignItems: 'center',
+		},
 
-export const NavLink = ({to, text, textStyle}) => {
+		textStyle: {
+			fontSize: fontSize ? fontSize : 32,
+			color: fontColor ? fontColor : WHITE,
+			fontWeight: isBold ? '600' : '300',
+			textDecorationLine: showUnderline ? 'underline' : 'none'
+		},
+	})
+
+export const NavLink = ({to, text, ...props}) => {
+	const styles = generateStyles(props)
+
 	return (
 		<View style={styles.containerStyle}>
 			<Link to={to}>
@@ -30,6 +34,11 @@ export const NavLink = ({to, text, textStyle}) => {
 }
 
 NavLink.propTypes = {
-	to: PropType.string.isRequired,
-	text: PropType.string.isRequired,
+	to: PropTypes.string.isRequired,
+	text: PropTypes.string.isRequired,
+	fontSize: PropTypes.number,
+	fontColor: PropTypes.string,
+	containerHeight: PropTypes.number,
+	isBold: PropTypes.bool,
+	showUnderline: PropTypes.bool
 }

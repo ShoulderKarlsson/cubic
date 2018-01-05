@@ -1,27 +1,12 @@
 import React from 'react'
 import {StyleSheet, View, Text} from 'react-native'
-
-const styles = StyleSheet.create({
-  square: {
-    height: 72,
-    width: 72,
-    backgroundColor: 'rgba(1,1,1, 0.4)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 6,
-  },
-
-  textStyle: {
-    fontSize: 64,
-    color: '#fff',
-  },
-})
+import PropTypes from 'prop-types'
 
 const getStyles = ({
   squareHeight,
   squareWidth,
   squareBackgroundColor,
+  squareMargin,
   textFontSize,
   textColor,
 }) => ({
@@ -34,7 +19,7 @@ const getStyles = ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 6,
+    margin: squareMargin ? squareMargin : 8
   },
 
   textStyle: {
@@ -54,4 +39,15 @@ export const Square = ({text, onClick = () => {}, ...props}) => {
       ) : null}
     </View>
   )
+}
+
+Square.propTypes = {
+  text: PropTypes.string,
+  squareHeight: PropTypes.number,
+  squareWidth: PropTypes.number,
+  squareBackgroundColor: PropTypes.string,
+  squareMargin: PropTypes.number,
+  textFontSize: PropTypes.number,
+  textColor: PropTypes.string,
+  onClick: PropTypes.func,
 }
