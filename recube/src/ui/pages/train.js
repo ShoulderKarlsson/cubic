@@ -1,13 +1,42 @@
 import React from 'react'
-import {View, Text, StyleSheet, TouchableNativeFeedback} from 'react-native'
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  TouchableNativeFeedback,
+  Dimensions,
+} from 'react-native'
+import {stages} from '../../lib/stages'
+import {globalStyles} from '../../lib/common-styles'
+const windowDimensions = Dimensions.get('window')
 
+const styles = StyleSheet.create({
+  stepContainer: {
+    height: windowDimensions.height,
+    width: windowDimensions.width,
+    backgroundColor: 'orange',
+    margin: 10,
+  },
+})
 
-export const Train = ({...props}) => {
+const StatelessTrain = ({...props}) => {
   return (
-    <View>
-      <Text>
-        Train stuff here.
-      </Text>
-    </View>
+    <ScrollView
+      contentContainerStyle={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: 3,
+      }}
+    >
+      {stages.map((stage, i) => {
+        return (
+          <View style={styles.stepContainer} key={i}>
+          </View>
+        )
+      })}
+    </ScrollView>
   )
 }
+
+export const Train = StatelessTrain
