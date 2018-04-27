@@ -1,21 +1,20 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, Dimensions} from 'react-native'
 import {RED} from '../lib/colors'
-import Dimensions from 'Dimensions'
-const win = Dimensions.get('window')
+const windowDimensions = Dimensions.get('window')
 
 export const globalStyles = StyleSheet.create({
-  container: {
+  mainColoredContainer: {
     flex: 1,
     backgroundColor: RED,
   },
 
   fullScreenHalfHeight: {
-    width: win.width,
-    height: win.height / 2,
+    width: windowDimensions.width,
+    height: windowDimensions.height / 2,
   },
 
-  centeredContent: {
+  XYCenter: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
