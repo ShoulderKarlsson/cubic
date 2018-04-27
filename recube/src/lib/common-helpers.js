@@ -2,7 +2,7 @@ import * as c from './colors'
 
 /**
  * Fisher-yates shuffle
- * @param {Array} a list of arbitrary values
+ * @param {Array} array is a list of random entries to be shuffled
  */
 export function shuffleArray(array) {
   const copy = array.slice()
