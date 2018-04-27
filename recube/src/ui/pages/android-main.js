@@ -1,60 +1,47 @@
 import React from 'react'
-import {StyleSheet, Text, View} from 'react-native'
-import {Square} from '../components/common/Square'
+import {StyleSheet, Text, View, TouchableNativeFeedback} from 'react-native'
 import {generateRandomColors} from '../../lib/common-helpers'
-import {RED} from '../../lib/colors'
 import {globalStyles} from '../../lib/common-styles'
-
-
+import {OpacityFadeView} from '../components/opacity-fade-view'
 
 const styles = StyleSheet.create({
+  colorSquare: {
+    height: 30,
+    width: 30,
+  },
 
+  colorContainer: {
+    flexDirection: 'row',
+
+    // Magic number that make the container wrap every third item :)
+    width: 204,
+    flexWrap: 'wrap',
+    backgroundColor: 'rgba(0,0,0,0.85)',
+  },
 })
 
 export const AndroidMain = ({...props}) => {
-  console.log('props', props)
-
   return (
-    <View>
-
+    <View style={[globalStyles.mainColoredContainer, globalStyles.XYCenter]}>
+      <View style={[styles.colorContainer, globalStyles.XYCenter]}>
+        {generateRandomColors(9).map((randomColor, i) => (
+          <OpacityFadeView
+            key={i}
+            delay={i * 100}
+            style={{
+              margin: 2,
+            }}
+          >
+            <TouchableNativeFeedback
+              background={TouchableNativeFeedback.SelectableBackground()}
+            >
+              <View
+                style={{height: 64, width: 64, backgroundColor: randomColor}}
+              />
+            </TouchableNativeFeedback>
+          </OpacityFadeView>
+        ))}
+      </View>
     </View>
   )
 }
-
-
-
-
-
-// const styles = StyleSheet.create({
-//   cubes: {
-//     flexDirection: 'row',
-//     width: 204,
-//     height: 204,
-//     flexWrap: 'wrap',
-//     backgroundColor: '#000',
-//   },
-//   optionsContainer: {
-//     display: 'flex',
-//     justifyContent: 'center',
-//     height: 128,
-//     marginTop: 64,
-//   },
-// })
-
-// export const Main = ({match}) => (
-//   <View style={[globalStyles.centeredContent, {flex: 1, backgroundColor: RED}]}>
-//     <View style={[globalStyles.centeredContent, styles.cubes]}>
-//       {generateRandomColors(9).map((color, i) => (
-//         <Square
-//           key={i}
-//           squareBackgroundColor={color}
-//           squareMargin={2}
-//           squareHeight={64}
-//           squareWidth={64}
-//         />
-//       ))}
-//     </View>
-//     <View style={styles.optionsContainer}>
-//     </View>
-//   </View>
-// )
