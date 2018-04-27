@@ -34,6 +34,8 @@ export const AndroidMain = ({navigation, ...props}) => {
       ]}
     >
       <View style={[styles.colorContainer, globalStyles.XYCenter]}>
+
+        {/* TODO: Use the Cube component instead of this. */}
         {generateRandomColors(amountOfBoxes).map((randomColor, i) => (
           <OpacityFadeView
             key={i}
