@@ -1,7 +1,14 @@
+import {RED, ORANGE, GREEN, YELLOW} from './colors'
+
 export const stages = [
   {
     title: 'Middle Layer, move to right',
-    description: 'Insert a top center piece into the right side of the middle layer.',
+    description: `Move the center top pice into the middle layer. This sequence will move the top middle piece to the right side 
+     of the middle layer.`,
+    cubeStates: {
+      finished: [ORANGE, GREEN, ORANGE, RED, RED, RED, RED, RED, RED],
+      exampleStart: [ORANGE, RED, ORANGE, RED, RED, YELLOW, RED, RED, RED],
+    },
     steps: [
       {name: 'U', order: [0, 6]},
       {name: 'R', order: [1]},
@@ -15,7 +22,8 @@ export const stages = [
   },
   {
     title: 'Middle Layer, move to left',
-    description: 'Insert a top center piece into the left side of the middle layer',
+    description:
+      'Insert a top center piece into the left side of the middle layer',
     steps: [
       {name: 'Ui', order: [0, 6]},
       {name: 'Li', order: [1]},
