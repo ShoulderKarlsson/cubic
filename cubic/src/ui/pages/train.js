@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
   stepContainer: {
     height: windowDimensions.height,
     width: windowDimensions.width,
-    // backgroundColor: 'orange',
     margin: 10,
   },
 
@@ -67,12 +66,7 @@ const StatelessTrain = ({...props}) => {
               </View>
 
               {/* Middle section, (Cube with results) */}
-              <View
-                style={{
-                  flex: 2,
-                  flexDirection: 'row',
-                }}
-              >
+              <View style={{flex: 2, flexDirection: 'row'}}>
                 <View
                   style={[
                     {flex: 1, backgroundColor: 'purple'},
@@ -85,7 +79,6 @@ const StatelessTrain = ({...props}) => {
                     brickMargin={2}
                   />
                 </View>
-
                 <View
                   style={[
                     {flex: 1, backgroundColor: 'yellow'},

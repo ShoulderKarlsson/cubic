@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, View, Text} from 'react-native'
+import {StyleSheet, View, Text, TouchableNativeFeedback} from 'react-native'
 import PropTypes from 'prop-types'
 
 const getStyles = ({
@@ -19,7 +19,7 @@ const getStyles = ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: squareMargin ? squareMargin : 8
+    margin: squareMargin ? squareMargin : 8,
   },
 
   textStyle: {
