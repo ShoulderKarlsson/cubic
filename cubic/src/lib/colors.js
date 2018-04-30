@@ -16,3 +16,5 @@ export const WHITE = '#ffffff'
 
 // red_light_2
 export const RED = '#e57373'
+
+export const ALT_BRIGHTER_RED = '#D46A6A'
