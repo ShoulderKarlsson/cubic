@@ -1,5 +1,6 @@
 import React from 'react'
 import {View, StyleSheet, TouchableNativeFeedback} from 'react-native'
+import PropTypes from 'prop-types'
 
 const calculateWrappingLength = (brickSize, brickMargin) => {
   // It should fit three bricks
@@ -13,9 +14,7 @@ const calculateWrappingLength = (brickSize, brickMargin) => {
   return totalBrickMargin + totalBricksize
 }
 
-const styles = StyleSheet.create({})
-
-const Brick = ({color, brickSize, brickMargin}) => (
+const Brick = ({color, brickSize = 60, brickMargin = 2}) => (
   <TouchableNativeFeedback
     background={TouchableNativeFeedback.SelectableBackground()}
   >
@@ -47,4 +46,12 @@ export const Cube = ({cubeColors, brickSize, brickMargin, ...props}) => {
       ))}
     </View>
   )
+}
+
+
+// @ts-ignore
+Cube.propTypes = {
+  cubeColors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  brickSize: PropTypes.number,
+  brickMargin: PropTypes.number,
 }
