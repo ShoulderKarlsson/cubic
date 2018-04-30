@@ -34,6 +34,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  stateText: {
+    color: WHITE,
+    fontSize: 16
+  },
+
   description: {
     fontSize: 14,
     color: '#DDDDDD', // TODO => Make this into a better color
@@ -48,7 +54,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const StatelessTrain = ({...props}) => {
+const StatelessTrain = ({navigation, ...props}) => {
   return (
     <ScrollView
       contentContainerStyle={{
@@ -59,7 +65,12 @@ const StatelessTrain = ({...props}) => {
     >
       {stages.map(
         (
-          {title, description, cubeStates = {exampleStart: [], finished: []}},
+          {
+            title,
+            description,
+            cubeStates = {exampleStart: [], finished: []},
+            steps,
+          },
           i
         ) => {
           return (
@@ -79,6 +90,7 @@ const StatelessTrain = ({...props}) => {
               {/* Middle section, (Cube with results) */}
               <View style={{flex: 2, flexDirection: 'row'}}>
                 <View style={[{flex: 1}, globalStyles.XYCenter]}>
+                  <Text style={styles.stateText}>Example start state</Text>
                   <Cube
                     cubeColors={cubeStates.exampleStart}
                     brickSize={60}
@@ -86,6 +98,7 @@ const StatelessTrain = ({...props}) => {
                   />
                 </View>
                 <View style={[{flex: 1}, globalStyles.XYCenter]}>
+                  <Text style={styles.stateText}>Example state when done</Text>
                   <Cube
                     cubeColors={cubeStates.finished}
                     brickSize={60}
@@ -97,9 +110,14 @@ const StatelessTrain = ({...props}) => {
               {/* Bottom Section (Button to step-train thingy) */}
               <View style={styles.linkContainer}>
                 <CButton
-                  label="Me is button"
-                  onPress={() => console.log(i)}
-                  size={'Medium'}
+                  label="Train on this!"
+                  // onPress={() =>
+                  //   navigation.navigate('StepTrain', {
+                  //     steps,
+                  //   })
+                  // }
+                  onPress={() => {}}
+                  size={'medium'}
                 />
               </View>
             </View>
