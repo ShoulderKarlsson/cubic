@@ -4,6 +4,8 @@ import {generateRandomColors} from '../../lib/common-helpers'
 import {globalStyles} from '../../lib/common-styles'
 import {OpacityFadeView} from '../components/opacity-fade-view'
 import {WHITE, RED} from '../../lib/colors'
+import {Cube} from '../components/cube'
+import {CButton} from '../components/cbutton'
 
 const styles = StyleSheet.create({
   colorSquare: {
@@ -34,16 +36,9 @@ export const AndroidMain = ({navigation, ...props}) => {
       ]}
     >
       <View style={[styles.colorContainer, globalStyles.XYCenter]}>
-
-        {/* TODO: Use the Cube component instead of this. */}
+        {/* Using this instead of Cube component since I want to animate each brick */}
         {generateRandomColors(amountOfBoxes).map((randomColor, i) => (
-          <OpacityFadeView
-            key={i}
-            delay={i * 100}
-            style={{
-              margin: 2,
-            }}
-          >
+          <OpacityFadeView key={i} delay={i * 100} style={{margin: 2}}>
             <TouchableNativeFeedback
               background={TouchableNativeFeedback.SelectableBackground()}
             >
@@ -55,19 +50,11 @@ export const AndroidMain = ({navigation, ...props}) => {
         ))}
       </View>
       <OpacityFadeView delay={amountOfBoxes * 100}>
-        <TouchableNativeFeedback
-          background={TouchableNativeFeedback.SelectableBackground()}
+        <CButton
+          size="large"
+          label="Start training!"
           onPress={() => navigation.navigate('Train')}
-        >
-          <Text
-            style={{
-              color: WHITE,
-              fontSize: 32,
-            }}
-          >
-            Start memory training
-          </Text>
-        </TouchableNativeFeedback>
+        />
       </OpacityFadeView>
     </View>
   )
