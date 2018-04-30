@@ -22,8 +22,12 @@ export const stages = [
   },
   {
     title: 'Middle Layer, move to left',
-    description:
-      'Insert a top center piece into the left side of the middle layer',
+    description: `Move the top center piece into the middle layer. This sequence will move the top middle centerpiece to the left side
+      of the middle layer.`,
+    cubeStates: {
+      finished: [ORANGE, GREEN, ORANGE, RED, RED, RED, RED, RED, RED],
+      exampleStart: [ORANGE, RED, ORANGE, YELLOW, RED, RED, RED, RED, RED],
+    },
     steps: [
       {name: 'Ui', order: [0, 6]},
       {name: 'Li', order: [1]},
@@ -37,7 +41,19 @@ export const stages = [
   },
   {
     title: 'Creating Yellow Cross',
-    description: 'Generate the yellow cross.',
+    description: `When the middle layer is done, create the yellow cross. Note - the yellow side can be of many shapes, but the algorithm is the same but it can require
+      to run the algorithm multiple times.`,
+    cubeStates: {
+      exampleStart: [
+        RED, ORANGE, RED,
+        GREEN, YELLOW, YELLOW,
+        ORANGE, YELLOW, ORANGE ],
+        finished: [
+          ORANGE, YELLOW, RED,
+          YELLOW, YELLOW, YELLOW,
+          GREEN, YELLOW, YELLOW
+        ]
+    },
     steps: [
       {name: 'F', order: [0]},
       {name: 'R', order: [1]},
@@ -49,7 +65,8 @@ export const stages = [
   },
   {
     title: 'Yellow Edges',
-    description: 'Move yellow edge pieces to their correct location',
+    // description: 'Move yellow edge pieces to their correct location',
+    description: `hmmm...`,
     steps: [
       {name: 'R', order: [0, 4]},
       {name: 'U', order: [1, 3, 7]},
