@@ -9,8 +9,9 @@ import {
 } from 'react-native'
 import {stages} from '../../lib/stages'
 import {globalStyles} from '../../lib/common-styles'
-import {WHITE, RED} from '../../lib/colors'
+import {WHITE, RED, ALT_BRIGHTER_RED} from '../../lib/colors'
 import {Cube} from '../components/cube'
+import {CButton} from '../components/cbutton'
 const windowDimensions = Dimensions.get('window')
 
 const styles = StyleSheet.create({
@@ -39,6 +40,12 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     textAlign: 'center',
   },
+
+  linkContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 0.8,
+  },
 })
 
 const StatelessTrain = ({...props}) => {
@@ -47,7 +54,6 @@ const StatelessTrain = ({...props}) => {
       contentContainerStyle={{
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 3,
         backgroundColor: RED,
       }}
     >
@@ -56,9 +62,14 @@ const StatelessTrain = ({...props}) => {
           {title, description, cubeStates = {exampleStart: [], finished: []}},
           i
         ) => {
-          console.log(cubeStates)
           return (
-            <View style={styles.stepContainer} key={i}>
+            <View
+              style={[
+                styles.stepContainer,
+                {backgroundColor: i % 2 === 0 ? ALT_BRIGHTER_RED : RED},
+              ]}
+              key={i}
+            >
               {/* Top container (Includes title and description) */}
               <View style={[globalStyles.XYCenter, styles.titleAndDescription]}>
                 <Text style={styles.title}>{title}</Text>
@@ -67,24 +78,14 @@ const StatelessTrain = ({...props}) => {
 
               {/* Middle section, (Cube with results) */}
               <View style={{flex: 2, flexDirection: 'row'}}>
-                <View
-                  style={[
-                    {flex: 1, backgroundColor: 'purple'},
-                    globalStyles.XYCenter,
-                  ]}
-                >
+                <View style={[{flex: 1}, globalStyles.XYCenter]}>
                   <Cube
                     cubeColors={cubeStates.exampleStart}
                     brickSize={60}
                     brickMargin={2}
                   />
                 </View>
-                <View
-                  style={[
-                    {flex: 1, backgroundColor: 'yellow'},
-                    globalStyles.XYCenter,
-                  ]}
-                >
+                <View style={[{flex: 1}, globalStyles.XYCenter]}>
                   <Cube
                     cubeColors={cubeStates.finished}
                     brickSize={60}
@@ -94,12 +95,13 @@ const StatelessTrain = ({...props}) => {
               </View>
 
               {/* Bottom Section (Button to step-train thingy) */}
-              <View
-                style={{
-                  flex: 0.8,
-                  backgroundColor: 'green',
-                }}
-              />
+              <View style={styles.linkContainer}>
+                <CButton
+                  label="Me is button"
+                  onPress={() => console.log(i)}
+                  size={'Medium'}
+                />
+              </View>
             </View>
           )
         }
