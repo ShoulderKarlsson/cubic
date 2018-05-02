@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 
   stateText: {
     color: WHITE,
-    fontSize: 16
+    fontSize: 16,
   },
 
   description: {
@@ -77,6 +77,8 @@ const StatelessTrain = ({navigation, ...props}) => {
             <View
               style={[
                 styles.stepContainer,
+
+                // Swithing background color every second
                 {backgroundColor: i % 2 === 0 ? ALT_BRIGHTER_RED : RED},
               ]}
               key={i}
@@ -91,19 +93,25 @@ const StatelessTrain = ({navigation, ...props}) => {
               <View style={{flex: 2, flexDirection: 'row'}}>
                 <View style={[{flex: 1}, globalStyles.XYCenter]}>
                   <Text style={styles.stateText}>Example start state</Text>
-                  <Cube
-                    cubeColors={cubeStates.exampleStart}
-                    brickSize={60}
-                    brickMargin={2}
-                  />
+                  {cubeStates.exampleStart.map((exampleState, i) => (
+                    <Cube
+                      key={i}
+                      cubeColors={exampleState}
+                      brickSize={cubeStates.exampleStart.length === 2 ? 30 : 60}
+                      brickMargin={2}
+                    />
+                  ))}
                 </View>
                 <View style={[{flex: 1}, globalStyles.XYCenter]}>
                   <Text style={styles.stateText}>Example state when done</Text>
-                  <Cube
-                    cubeColors={cubeStates.finished}
-                    brickSize={60}
-                    brickMargin={2}
-                  />
+                  {cubeStates.finished.map((exampleFinish, i) => (
+                    <Cube
+                      key={i}
+                      cubeColors={exampleFinish}
+                      brickSize={cubeStates.exampleStart.length === 2 ? 30 : 60}
+                      brickMargin={2}
+                    />
+                  ))}
                 </View>
               </View>
 
@@ -116,7 +124,7 @@ const StatelessTrain = ({navigation, ...props}) => {
                   //     steps,
                   //   })
                   // }
-                  onPress={() => {}}
+                  onPress={() => console.log('Training on something')}
                   size={'medium'}
                 />
               </View>
