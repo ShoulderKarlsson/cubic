@@ -6,8 +6,8 @@ export const stages = [
     description: `Move the center top pice into the middle layer. This sequence will move the top middle piece to the right side 
      of the middle layer.`,
     cubeStates: {
-      finished: [ORANGE, GREEN, ORANGE, RED, RED, RED, RED, RED, RED],
-      exampleStart: [ORANGE, RED, ORANGE, RED, RED, YELLOW, RED, RED, RED],
+      finished: [[ORANGE, GREEN, ORANGE, RED, RED, RED, RED, RED, RED]],
+      exampleStart: [[ORANGE, RED, ORANGE, RED, RED, YELLOW, RED, RED, RED]],
     },
     steps: [
       {name: 'U', order: [0, 6]},
@@ -25,8 +25,8 @@ export const stages = [
     description: `Move the top center piece into the middle layer. This sequence will move the top middle centerpiece to the left side
       of the middle layer.`,
     cubeStates: {
-      finished: [ORANGE, GREEN, ORANGE, RED, RED, RED, RED, RED, RED],
-      exampleStart: [ORANGE, RED, ORANGE, YELLOW, RED, RED, RED, RED, RED],
+      finished: [[ORANGE, GREEN, ORANGE, RED, RED, RED, RED, RED, RED]],
+      exampleStart: [[ORANGE, RED, ORANGE, YELLOW, RED, RED, RED, RED, RED]],
     },
     steps: [
       {name: 'Ui', order: [0, 6]},
@@ -45,14 +45,11 @@ export const stages = [
       to run the algorithm multiple times.`,
     cubeStates: {
       exampleStart: [
-        RED, ORANGE, RED,
-        GREEN, YELLOW, YELLOW,
-        ORANGE, YELLOW, ORANGE ],
-        finished: [
-          ORANGE, YELLOW, RED,
-          YELLOW, YELLOW, YELLOW,
-          GREEN, YELLOW, YELLOW
-        ]
+        [RED, ORANGE, RED, GREEN, YELLOW, YELLOW, ORANGE, YELLOW, ORANGE],
+      ],
+      finished: [
+        [ORANGE, YELLOW, RED, YELLOW, YELLOW, YELLOW, GREEN, YELLOW, YELLOW],
+      ],
     },
     steps: [
       {name: 'F', order: [0]},
@@ -65,8 +62,18 @@ export const stages = [
   },
   {
     title: 'Yellow Edges',
-    // description: 'Move yellow edge pieces to their correct location',
-    description: `hmmm...`,
+    description: `The next step is to align the yellow edge pieces to their final position. The goal is to align the yellow edge pieces
+      to match the colors of the side center pieces.`,
+    cubeStates: {
+      exampleStart: [
+        [RED, ORANGE, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN],
+        [YELLOW, GREEN, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE],
+      ],
+      finished: [
+        [ORANGE, GREEN, RED, GREEN, GREEN, GREEN, GREEN, GREEN, GREEN],
+        [YELLOW, ORANGE, GREEN, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE],
+      ],
+    },
     steps: [
       {name: 'R', order: [0, 4]},
       {name: 'U', order: [1, 3, 7]},
@@ -103,3 +110,6 @@ export const stages = [
     ],
   },
 ]
+// After making the yellow cross on the top of the cube you have to put
+// the yellow edge pieces on their final places to match the
+// colors of the side center pieces. Switch the front and left yellow edges with the following algorithm:
