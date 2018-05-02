@@ -30,7 +30,6 @@ const Brick = ({color, brickSize = 60, brickMargin = 2}) => (
 )
 
 export const Cube = ({cubeColors, brickSize, brickMargin, ...props}) => {
-  console.log(cubeColors)
   return (
     <View
       style={{
