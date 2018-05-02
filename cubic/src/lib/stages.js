@@ -87,7 +87,8 @@ export const stages = [
   },
   {
     title: 'Alligning Yellow corner pieces',
-    description: 'Align all the corner pieces to their correct location',
+    description: `The purpose for this step is to align the corner pieces to the correct location. Note - After this step, all the colors for a entire square
+      should match, but they will be wrongly aligned.`,
     steps: [
       {name: 'U', order: [0, 4]},
       {name: 'R', order: [1]},
@@ -101,7 +102,9 @@ export const stages = [
   },
   {
     title: 'Orient yellow corners',
-    description: 'Last step to finish the cube.',
+    description: `Last step! When all the corners are properly aligned, move one to bottom right corner (from the yellow's cross perspective) and repeat the algorithm until
+      the yellow side is aligned correctly. When aligned correctly, move another corner into the bottom right and repeat. Note - During this, the cube will look destroyed, dont worry; it will get fixed!`,
+    // description: 'Last step to finish the cube.',
     steps: [
       {name: 'Ri', order: [0]},
       {name: 'Di', order: [1]},
@@ -110,6 +113,3 @@ export const stages = [
     ],
   },
 ]
-// After making the yellow cross on the top of the cube you have to put
-// the yellow edge pieces on their final places to match the
-// colors of the side center pieces. Switch the front and left yellow edges with the following algorithm:
